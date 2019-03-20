@@ -11,6 +11,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
+    petitions: state.elev.petitions
   }
 }
 

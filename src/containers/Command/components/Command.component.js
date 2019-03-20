@@ -3,15 +3,21 @@ import { CommandMainContainer, ActionsCards, PetitionsNumber, PetitionsTitle } f
 
 class Command extends Component {
   render() {
+    const amountPetitions = this.props.petitions.length;
+    const listItems = this.props.petitions.map(elem => {
+      return (
+        <ActionsCards>
+              <span>{elem.floor} </span><i className="fas fa-door-closed"></i>
+              <span>|</span>
+              <span> {elem.people} </span><i className="fas fa-male"></i>
+        </ActionsCards>
+      )
+    })
     return (
       <CommandMainContainer>
-          <PetitionsNumber>40</PetitionsNumber>
+          <PetitionsNumber>{amountPetitions}</PetitionsNumber>
           <PetitionsTitle>Petitions</PetitionsTitle>
-          <ActionsCards>
-              <span>20 </span><i className="fas fa-door-closed"></i>
-              <span>|</span>
-              <span> 3 </span><i className="fas fa-male"></i>
-          </ActionsCards>
+          {listItems}
       </CommandMainContainer>
     );
   }
