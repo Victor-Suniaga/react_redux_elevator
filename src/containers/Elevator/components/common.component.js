@@ -32,6 +32,7 @@ export const ElevatorFloor = styled.div`
 
 export const ElevatorMainContainer = styled.div`
     display: flex;
+    flex: 3;
     margin-top: 10px;
 `
 
@@ -46,4 +47,5 @@ export const Number = styled.p`
     background: #437f8a;
     margin-left: 20%;
     margin-right: 20%;
+    text-align: center;
 `

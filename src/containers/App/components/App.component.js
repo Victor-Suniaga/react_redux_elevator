@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import logo from '../../../logo.svg';
-import './App.component.css';
 import { ElevatorContainer } from '../..';
+import { AppMainContainer } from './common.component'
+import CommandContainer from '../../Command/Command.container';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <AppMainContainer>
         <ElevatorContainer />
-      </div>
+        <CommandContainer />
+      </AppMainContainer>
     );
   }
 }
