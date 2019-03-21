@@ -5,7 +5,7 @@ export const ElevatorBox = styled.div`
     background: #282c34;
     box-sizing: border-box;
     margin-left: 42.5%;
-    bottom: 2vh;
+    bottom: ${props => props.height || "0vh"};
     height: 2vh;
     position: relative;
     z-index: 2;
