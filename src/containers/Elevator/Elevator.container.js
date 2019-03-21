@@ -14,8 +14,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    petitionsAsked: state.elev.petitions.length,
-    status: state.elev.elevator1
+    petitionsAsked: state.elev.petitions.length
   }
 }
 
