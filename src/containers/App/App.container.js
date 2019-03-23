@@ -15,10 +15,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     petitionsAsked: state.elev.petitions.length,
-    elevator1: state.elev.elevator1,
-    elevator2: state.elev.elevator2,
-    elevator3: state.elev.elevator3,
-    elevator4: state.elev.elevator4
+    elevators: state.elev.elevators
   }
 }
 

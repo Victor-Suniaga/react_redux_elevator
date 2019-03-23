@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ElevatorBox, ElevatorSecContainer, Number } from './common.component';
 import ElevatorLine from './ElevatorLine.component';
 import { timer, BehaviorSubject } from 'rxjs';
-import { ELEVATOR_GET, ELEVATOR_SET } from '../../../constants/actions';
 
 class Elevator extends Component {
 
@@ -11,8 +10,6 @@ class Elevator extends Component {
     this.state = {
       currentPosition: 0,
       currentFloor: 0,
-      elevatorGet: ELEVATOR_GET + this.props.number,
-      elevatorSet: ELEVATOR_SET + this.props.number,
     }
     this.elevatorStop = new BehaviorSubject(true);
   }
@@ -29,20 +26,21 @@ class Elevator extends Component {
   }
 
   getFloor() {
-    this.props.actions.getFloor(this.state.elevatorGet);
+    this.props.actions.getFloor(this.props.number);
     timer(100).subscribe( _ => {
       (!this.props.status) ? this.getFloor() : this.elevatorStop.next(true)
     })
   }
 
-  moveElevator( value = 0.1) {
+  moveElevator( value = 1) {
     const timerVariable = timer(1000, 10).subscribe( _ => {
-      const newValue = this.state.currentPosition + value;
+      let newValue = this.state.currentPosition + value;
+      newValue = (newValue < 0) ?  0 : newValue
       this.setState({
         currentPosition: newValue,
         currentFloor: Math.floor(newValue)
       });
-      if (this.state.currentFloor === this.props.status.floor) {
+      if (this.state.currentFloor === (this.props.status.floor * 10)) {
         timerVariable.unsubscribe();
         (this.state.currentFloor === 0) ? this.getFloor() : this.goFirstFloor();
       }
@@ -50,13 +48,13 @@ class Elevator extends Component {
   }
 
   goFirstFloor() {
-    this.props.actions.setFloor(this.state.elevatorSet, {
+    this.props.actions.setFloor(this.props.number, {
       people: 0,
       floor: 0,
       id: null
     });
     timer(100).subscribe( _ => {
-      this.moveElevator(-0.1);
+      this.moveElevator(-1);
     })
   }
 
@@ -64,8 +62,8 @@ class Elevator extends Component {
     return (
         <ElevatorSecContainer>
             <ElevatorLine number={this.props.number} />
-            <ElevatorBox height={`${this.state.currentPosition * 2}vh`}/>
-            <Number>{this.state.currentFloor} { (this.props.status) ? this.props.status.floor : 0}</Number>
+            <ElevatorBox height={`${(this.state.currentPosition / 10) * 2}vh`}/>
+            <Number>{Math.floor(this.state.currentFloor / 10)} { (this.props.status) ? this.props.status.floor : 0}</Number>
         </ElevatorSecContainer>
     );
   }

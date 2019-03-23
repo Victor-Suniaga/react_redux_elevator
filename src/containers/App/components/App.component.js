@@ -20,13 +20,13 @@ class App extends Component {
   }
   
   render() {
+    const listItems = this.props.elevators.map((elev, index) => {
+      return (<ElevatorContainer key={index} number={index} status={elev} /> )
+    })
     return (
       <AppMainContainer>
           <ElevatorMainContainer>
-            <ElevatorContainer number={1} status={this.props.elevator1} />
-            <ElevatorContainer number={2} status={this.props.elevator2} />
-            <ElevatorContainer number={3} status={this.props.elevator3} />
-            <ElevatorContainer number={4} status={this.props.elevator4} />
+            {listItems}
         </ElevatorMainContainer>
         <CommandContainer />
       </AppMainContainer>
